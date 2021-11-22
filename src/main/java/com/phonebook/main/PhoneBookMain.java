@@ -31,8 +31,18 @@ public class PhoneBookMain {
                 break;
             }
             try {
-                // TODO: add your code here
-                throw new UnsupportedOperationException("Implement it!");
+                if (line.matches("ADD.*")) {
+                    phoneBook.addPhone(line.split(" ")[1], line.split(" ")[2]);
+                }
+                else if (line.matches("REMOVE_PHONE.*")) {
+                    phoneBook.removePhone(line.split(" ")[1]);
+                }
+                else if (line.equals("SHOW")) {
+                    renderer.show(phoneBook.getData());
+                }
+                else {
+                    throw new UnsupportedOperationException("Unsupported operation! Please use ADD, REMOVE_PHONE or SHOW.");
+                }
             } catch (Exception e) {
                 renderer.error(e);
             }

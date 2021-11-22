@@ -39,21 +39,44 @@ public class InMemoryRepositoryIml implements InMemoryRepository {
 
     @Override
     public Set<String> findAllPhonesByName(String name) {
-        throw new UnsupportedOperationException("Implement it!");
+        return data.get(name);
     }
 
     @Override
     public String findNameByPhone(String phone) {
-        throw new UnsupportedOperationException("Implement it!");
+        for (Map.Entry<String, Set<String>> entry : data.entrySet()) {
+            for (String phoneEntry : entry.getValue()) {
+                if (phoneEntry.equals(phone)) {
+                    return entry.getKey();
+                }
+            }
+        }
+        return null;
     }
 
     @Override
     public void addPhone(String name, String phone) {
-        throw new UnsupportedOperationException("Implement it!");
+        Set phonesSet = findAllPhonesByName(name);
+        String[] phones = phone.split(",");
+        for (String iter : phones) {
+            phonesSet.add(iter);
+        }
+        data.put(name, phonesSet);
     }
 
     @Override
     public void removePhone(String phone) throws IllegalArgumentException {
-        throw new UnsupportedOperationException("Implement it!");
+        String name = findNameByPhone(phone);
+        if (name != null) {
+            if (data.get(name).size() > 1) {
+                Set<String> updatedPhones = findAllPhonesByName(name);
+                updatedPhones.remove(phone);
+                data.put(name, updatedPhones);
+            } else {
+                data.remove(name);
+            }
+        } else {
+            throw new IllegalArgumentException("Incorrect phone was provided!");
+        }
     }
 }

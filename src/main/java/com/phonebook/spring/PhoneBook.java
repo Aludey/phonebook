@@ -13,7 +13,7 @@ import java.util.Set;
 @Service
 public class PhoneBook {
 
-    // @Autowired
+    @Autowired
     private InMemoryRepository repository;
 
     public PhoneBook() {
@@ -25,7 +25,7 @@ public class PhoneBook {
      *
      * @param repository
      */
-    // @Autowired
+    @Autowired
     public PhoneBook(InMemoryRepository repository) {
         this.repository = repository;
     }
@@ -46,7 +46,15 @@ public class PhoneBook {
         return repository.findAll();
     }
 
-    /**
-     * TODO: please add required methods here
-     */
+    public void addPhone(String name, String phone) {
+        repository.addPhone(name, phone);
+    }
+
+    public void removePhone(String phone) {
+        repository.removePhone(phone);
+    }
+
+    public Map<String, Set<String>>  getData(){
+        return repository.findAll();
+    }
 }
