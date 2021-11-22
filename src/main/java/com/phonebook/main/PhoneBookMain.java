@@ -23,6 +23,9 @@ public class PhoneBookMain {
         PhoneBook phoneBook = context.getBean("phoneBook", PhoneBook.class);
         PhoneBookFormatter renderer = (PhoneBookFormatter) context.getBean("phoneBookFormatter");
 
+        renderer.info("type 'ADD' 'name' 'phone sequence' to add a phone(s) to a new user or an existing one");
+        renderer.info("type 'REMOVE_PHONE' 'phone' to remove a phone number");
+        renderer.info("type 'SHOW' to show contents of a phonebook");
         renderer.info("type 'exit' to quit.");
         while (sc.hasNext()) {
             String line = sc.nextLine();
@@ -32,7 +35,11 @@ public class PhoneBookMain {
             }
             try {
                 if (line.matches("ADD.*")) {
-                    phoneBook.addPhone(line.split(" ")[1], line.split(" ")[2]);
+                    String name = line.split(" ")[1];
+                    String[] phoneSequence = line.split(" ")[2].split(",");
+                    for (String phone : phoneSequence) {
+                        phoneBook.addPhone(name, phone);
+                    }
                 }
                 else if (line.matches("REMOVE_PHONE.*")) {
                     phoneBook.removePhone(line.split(" ")[1]);
