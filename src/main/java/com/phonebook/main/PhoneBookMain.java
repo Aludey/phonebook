@@ -45,7 +45,7 @@ public class PhoneBookMain {
                     phoneBook.removePhone(line.split(" ")[1]);
                 }
                 else if (line.equals("SHOW")) {
-                    renderer.show(phoneBook.getData());
+                    renderer.show(phoneBook.findAll());
                 }
                 else {
                     throw new UnsupportedOperationException("Unsupported operation! Please use ADD, REMOVE_PHONE or SHOW.");

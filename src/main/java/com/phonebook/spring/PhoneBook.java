@@ -53,8 +53,4 @@ public class PhoneBook {
     public void removePhone(String phone) {
         repository.removePhone(phone);
     }
-
-    public Map<String, Set<String>>  getData(){
-        return repository.findAll();
-    }
 }
